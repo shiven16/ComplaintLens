@@ -1,0 +1,12 @@
+data/
+.venv/
+__pycache__/
+*.py[cod]
+*.parquet
+*.arrow
+*.feather
+*.csv
+*.tsv
+*.zip
+*.gz
+*.jsonl
