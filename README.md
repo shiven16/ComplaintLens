@@ -63,12 +63,13 @@ Extraction streams the Hugging Face dataset and saves data/raw/ plus data/raw/ma
 
     python preprocess_complaints.py --overwrite
     python analyze_processed.py
+    python train_tfidf.py
 
-Preprocessing writes train, validation, and test Parquet files under data/processed/ and cleaning metadata under reports/. The processed-split analysis writes summary tables and SVG figures under reports/. Requirements are pinned in requirements.txt.
+Preprocessing writes train, validation, and test Parquet files under data/processed/ and cleaning metadata under reports/. The processed-split analysis writes summary tables and SVG figures under reports/. The TF-IDF baseline trains product, issue, and priority classifiers on train only, reports validation and test metrics, and saves models under models/tfidf/ (Git-ignored). Requirements are pinned in requirements.txt.
 
 ## Plan
 
-- **M3:** TF-IDF with logistic regression, then fine-tuned DistilBERT; maintain an experiment log. Optional add-ons: priority flag prediction and similar-complaint retrieval.
+- **M3:** Run and compare the TF-IDF logistic-regression baselines, record results in an experiment log, then fine-tune DistilBERT. Optional add-ons: priority flag prediction and similar-complaint retrieval.
 - **M4:** Evaluate macro-F1, per-class results, top-3 issue accuracy, and error analysis; test robustness to masked company names, noisy text, and later time periods.
 - **M5:** Build a FastAPI service and small Streamlit demo; measure latency and add monitoring and failure handling.
 - **M6:** Complete the report, demo, and viva.
