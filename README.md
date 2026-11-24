@@ -73,3 +73,13 @@ Preprocessing writes train, validation, and test Parquet files under data/proces
 - **M4:** Evaluate macro-F1, per-class results, top-3 issue accuracy, and error analysis; test robustness to masked company names, noisy text, and later time periods.
 - **M5:** Build a FastAPI service and small Streamlit demo; measure latency and add monitoring and failure handling.
 - **M6:** Complete the report, demo, and viva.
+
+## Demo
+
+
+Install the pinned requirements, ensure the TF-IDF artifacts exist under models/tfidf/ (run python train_tfidf.py after preprocessing if needed), then launch the local interface:
+
+    streamlit run app.py
+
+
+The demo accepts a narrative and shows the top three product and issue suggestions plus the candidate priority signal. It uses the unweighted TF-IDF baseline; submitted text is held only in the active Streamlit session and is not written to disk. The displayed scores are not calibrated confidence, and priority is the project’s proxy label.

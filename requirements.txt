@@ -4,3 +4,4 @@ scikit-learn==1.6.1
 torch==2.6.0
 transformers==4.49.0
 accelerate==1.4.0
+streamlit==1.65.0
