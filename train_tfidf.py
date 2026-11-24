@@ -71,6 +71,15 @@ def main() -> None:
             for label in model.classes_:
                 item = report[str(label)]
                 class_rows.append([task, split, label, int(item["support"]), item["precision"], item["recall"], item["f1-score"]])
+        if task in ("product", "issue"):
+            weighted = SGDClassifier(loss="log_loss", max_iter=12, tol=1e-3, random_state=42,
+                                     average=True, class_weight="balanced", n_jobs=-1)
+            weighted.fit(x_train, y_train)
+            y_val = np.asarray(datasets["validation"][task])
+            yhat = weighted.predict(matrices["validation"])
+            metric_rows.append([f"{task}_balanced", "validation", len(y_val),
+                                f1_score(y_val, yhat, average="macro", zero_division=0),
+                                accuracy_score(y_val, yhat), ""])
         print(f"Finished {task}: {len(model.classes_)} classes", flush=True)
 
     with (REPORTS / "tfidf_metrics.csv").open("w", newline="", encoding="utf-8") as f:
